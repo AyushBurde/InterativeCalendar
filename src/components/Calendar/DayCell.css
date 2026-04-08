@@ -1,0 +1,322 @@
+.day-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.day-cell:hover:not(.other-month) {
+  background: var(--bg-hover);
+  transform: scale(1.1);
+}
+
+.day-cell:active:not(.other-month) {
+  transform: scale(0.92);
+}
+
+.day-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-day);
+  position: relative;
+  z-index: 3;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+/* Other month (faded) */
+.day-cell.other-month {
+  cursor: default;
+  opacity: 0.25;
+}
+
+.day-cell.other-month:hover {
+  transform: none;
+  background: none;
+}
+
+.day-cell.other-month .day-number {
+  color: var(--text-faint);
+}
+
+/* Weekend */
+.day-cell.weekend .day-number {
+  color: var(--weekend-color);
+  font-weight: 600;
+}
+
+/* Today */
+.day-cell.today {
+  position: relative;
+}
+
+.today-ring {
+  position: absolute;
+  inset: 2px;
+  border: 2px solid;
+  border-radius: 10px;
+  z-index: 1;
+  opacity: 0.3;
+  animation: todayBreath 3s ease-in-out infinite;
+}
+
+.today-dot {
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  z-index: 2;
+  animation: todayPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes todayBreath {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.05); }
+}
+
+@keyframes todayPulse {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.5; transform: translateX(-50%) scale(1.4); }
+}
+
+/* Range endpoint background */
+.range-endpoint-bg {
+  position: absolute;
+  inset: 3px;
+  border-radius: 10px;
+  z-index: 2;
+  opacity: 0.9;
+  animation: rangeEndpointPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes rangeEndpointPop {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 0.9; }
+}
+
+.day-cell.range-start .day-number,
+.day-cell.range-end .day-number {
+  color: white;
+  font-weight: 700;
+}
+
+.day-cell.range-start .today-ring,
+.day-cell.range-end .today-ring {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.day-cell.range-start .today-dot,
+.day-cell.range-end .today-dot {
+  background-color: white !important;
+}
+
+/* Range connector (in-between cells) */
+.range-connector {
+  position: absolute;
+  inset: 4px 0;
+  background: var(--range-bg);
+  z-index: 0;
+  border-radius: 0;
+}
+
+.day-cell.range-start .range-connector {
+  border-radius: 10px 0 0 10px;
+}
+
+.day-cell.range-end .range-connector {
+  border-radius: 0 10px 10px 0;
+}
+
+/* In range */
+.day-cell.in-range {
+  background: var(--range-bg);
+  border-radius: 4px;
+}
+
+.day-cell.in-range .day-number {
+  color: var(--range-color);
+  font-weight: 600;
+}
+
+.day-cell.in-range:hover {
+  background: var(--range-bg-strong);
+}
+
+/* Preview range (hover during selection) */
+.day-cell.in-preview-range {
+  background: var(--range-bg);
+  border-radius: 4px;
+  opacity: 0.65;
+}
+
+.day-cell.in-preview-range .day-number {
+  color: var(--range-color);
+}
+
+.day-cell.preview-end {
+  opacity: 0.8;
+}
+
+.day-cell.preview-end .day-number {
+  font-weight: 600;
+}
+
+/* Holiday */
+.holiday-indicator {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  z-index: 4;
+}
+
+.holiday-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px var(--bg-paper);
+  transition: box-shadow 0.5s ease;
+}
+
+.holiday-tooltip {
+  display: none;
+  position: absolute;
+  top: -6px;
+  right: 16px;
+  background: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+.holiday-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 10px;
+  border-left: 6px solid var(--text-primary);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.tooltip-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  display: block;
+  color: var(--bg-paper);
+}
+
+.tooltip-type {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: block;
+  margin-top: 2px;
+}
+
+.holiday-indicator:hover .holiday-tooltip {
+  display: block;
+  animation: tooltipFade 0.25s ease;
+}
+
+@keyframes tooltipFade {
+  from { opacity: 0; transform: translateX(6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Note indicator */
+.note-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  z-index: 4;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.day-cell:hover .note-indicator {
+  opacity: 1;
+}
+
+/* Has holiday → bolder text */
+.day-cell.has-holiday .day-number {
+  font-weight: 600;
+}
+
+/* ======== Responsive ======== */
+@media (max-width: 768px) {
+  .day-number {
+    font-size: 0.78rem;
+  }
+
+  .day-cell {
+    border-radius: 10px;
+  }
+
+  .holiday-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .today-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .today-ring {
+    inset: 2px;
+    border-width: 1.5px;
+    border-radius: 8px;
+  }
+
+  .range-endpoint-bg {
+    inset: 2px;
+    border-radius: 8px;
+  }
+
+  .note-indicator svg {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .day-number {
+    font-size: 0.7rem;
+  }
+
+  .day-cell {
+    border-radius: 8px;
+  }
+
+  .holiday-dot {
+    width: 3px;
+    height: 3px;
+  }
+
+  .today-ring {
+    border-width: 1px;
+    border-radius: 6px;
+  }
+
+  .range-endpoint-bg {
+    inset: 1px;
+    border-radius: 6px;
+  }
+}

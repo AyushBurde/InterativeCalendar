@@ -1,0 +1,134 @@
+.spiral-binding {
+  position: relative;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spiral-hook {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 11;
+  margin-bottom: -6px;
+}
+
+.hook-nail {
+  width: 10px;
+  height: 10px;
+  background: var(--nail-bg);
+  border-radius: 50%;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.hook-wire {
+  width: 2.5px;
+  height: 16px;
+  background: linear-gradient(to right, var(--spiral-color), rgba(136,136,136,0.8));
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.spiral-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+
+.spiral-ring {
+  width: 22px;
+  height: 26px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.spiral-ring::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 22px;
+  border: 2.5px solid var(--spiral-color);
+  border-radius: 50%;
+  background: transparent;
+  top: 0;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.5s ease;
+}
+
+.ring-inner {
+  width: 10px;
+  height: 5px;
+  background: var(--spiral-inner);
+  border-radius: 0 0 5px 5px;
+  position: relative;
+  z-index: 6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .spiral-row {
+    gap: 5px;
+    padding: 0 16px;
+  }
+
+  .spiral-ring {
+    width: 16px;
+    height: 20px;
+  }
+
+  .spiral-ring::before {
+    width: 14px;
+    height: 18px;
+    border-width: 2px;
+  }
+
+  .ring-inner {
+    width: 8px;
+    height: 4px;
+  }
+
+  .hook-nail {
+    width: 7px;
+    height: 7px;
+  }
+
+  .hook-wire {
+    height: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .spiral-row {
+    gap: 3px;
+    padding: 0 10px;
+  }
+
+  .spiral-ring {
+    width: 13px;
+    height: 16px;
+  }
+
+  .spiral-ring::before {
+    width: 11px;
+    height: 14px;
+    border-width: 1.5px;
+  }
+
+  .ring-inner {
+    width: 6px;
+    height: 3px;
+  }
+}

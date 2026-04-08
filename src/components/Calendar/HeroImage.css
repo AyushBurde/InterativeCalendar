@@ -1,0 +1,246 @@
+.hero-image-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  animation: heroFadeIn 1s ease-out;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Page flip animation — flips up like a real wall calendar */
+.hero-image-container {
+  transform-origin: top center;
+}
+
+.hero-image-container.flip-next {
+  animation: pageFlipUp 0.6s ease-in-out;
+}
+
+.hero-image-container.flip-prev {
+  animation: pageFlipDown 0.6s ease-in-out;
+}
+
+@keyframes pageFlipUp {
+  0% { transform: perspective(1200px) rotateX(0deg); opacity: 1; }
+  50% { transform: perspective(1200px) rotateX(-90deg); opacity: 0; }
+  51% { transform: perspective(1200px) rotateX(90deg); opacity: 0; }
+  100% { transform: perspective(1200px) rotateX(0deg); opacity: 1; }
+}
+
+@keyframes pageFlipDown {
+  0% { transform: perspective(1200px) rotateX(0deg); opacity: 1; }
+  50% { transform: perspective(1200px) rotateX(90deg); opacity: 0; }
+  51% { transform: perspective(1200px) rotateX(-90deg); opacity: 0; }
+  100% { transform: perspective(1200px) rotateX(0deg); opacity: 1; }
+}
+
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.hero-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--bg-paper) 25%, var(--border-color) 50%, var(--bg-paper) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 8s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+
+.hero-img.loaded {
+  opacity: 1;
+}
+
+.hero-image-container:hover .hero-img {
+  transform: scale(1.06);
+}
+
+/* Gradient overlay for text contrast */
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Wave overlay transition */
+.hero-overlay {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 3;
+}
+
+.hero-wave {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wave-white {
+  fill: var(--bg-paper);
+  opacity: 0.95;
+  transition: fill 0.5s ease;
+}
+
+/* Text badge */
+.hero-text {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  z-index: 4;
+  text-align: right;
+  transform-origin: right bottom;
+  background: var(--overlay-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 14px 22px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.hero-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--cal-primary);
+  display: block;
+  letter-spacing: 3px;
+}
+
+.hero-month {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 4px;
+  line-height: 1;
+  transition: color 0.5s ease;
+}
+
+.hero-season-badge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Decorative corner */
+.hero-corner-decor {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  border-left: 2px solid;
+  border-top: 2px solid;
+  border-radius: 4px 0 0 0;
+  z-index: 4;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.hero-image-container:hover .hero-corner-decor {
+  opacity: 1;
+}
+
+/* ======== Responsive ======== */
+@media (max-width: 768px) {
+  .hero-image-wrapper {
+    height: 220px;
+  }
+
+  .hero-month {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-year {
+    font-size: 0.95rem;
+  }
+
+  .hero-text {
+    bottom: 18px;
+    right: 14px;
+    padding: 10px 16px;
+    border-radius: 12px;
+  }
+
+  .hero-season-badge {
+    font-size: 0.58rem;
+    padding: 3px 12px;
+  }
+
+  .hero-corner-decor {
+    width: 28px;
+    height: 28px;
+    top: 10px;
+    left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image-wrapper {
+    height: 180px;
+  }
+
+  .hero-month {
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .hero-text {
+    bottom: 14px;
+    right: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+  }
+
+  .hero-corner-decor {
+    display: none;
+  }
+}
