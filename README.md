@@ -58,7 +58,7 @@ A beautiful, skeuomorphic interactive wall calendar built with **React + Vite**.
 
 ```bash
 # Clone the repository
-git clone <repo-url>
+git clone <https://github.com/AyushBurde/InterativeCalendar.git>
 cd interactive-wall-calendar
 
 # Install dependencies
