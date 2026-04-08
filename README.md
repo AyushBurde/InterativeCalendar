@@ -17,6 +17,7 @@ A beautiful, skeuomorphic interactive wall calendar built with **React + Vite**.
 - **Fully Responsive** — Desktop side-by-side layout gracefully collapses to stacked mobile layout with touch-friendly date cells
 
 ### Standout Features ✨
+- Mini calendar after clicking the year inside the calendar - it will show us full mini year calendar.
 - **3D Page-Flip Animation** — Month transitions use CSS 3D perspective `rotateX` transforms that flip the page upward like a real wall calendar
 - **4 Seasonal Themes** — Winter, Summer, Monsoon, Autumn — each with a unique hero image and auto-harmonized color palette
 - **Holiday Markers** — 27+ Indian national holidays, festivals, and international holidays with colored badges and hover tooltips
